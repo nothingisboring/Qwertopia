@@ -125,6 +125,8 @@
             flex-direction: column;
             align-items: center;
             margin-top: 2rem;
+            padding-bottom: 12rem; /* Ensure space at bottom for wordlists */
+}
         }
         #keyboard {
             display: grid;
@@ -250,19 +252,21 @@
             text-align: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
-       .word-list-container {
+      .word-list-container {
     display: flex;
     justify-content: center;
     align-items: stretch;
     width: 100%;
     flex-wrap: wrap;
-    margin-top: 2.5rem;
+    /* Remove these:
     position: absolute;
     bottom: 0;
     left: 0;
+    */
     padding: 1.25rem 0;
     box-sizing: border-box;
     gap: 1rem;
+    margin-top: 2.5rem; /* Add margin above */
 }
     .word-list-group {
     min-width: 220px;
@@ -462,6 +466,7 @@
         <div id="word-input">
             <input type="text" id="word-input-box" placeholder="Enter word">
             <button id="submit-word">Submit</button>
+            <button id="pass-turn" style="background:#fbbf24;color:#222;">Pass Turn</button>
         </div>
         <div id="current-player">Current Player: 1</div>
         <div id="game-info">Player 1: 0/5 words | Player 2: 0/5 words</div>
@@ -596,6 +601,47 @@ async function checkWordValidity(word) {
     }
 }
 
+const passTurnButton = document.getElementById('pass-turn');
+
+function playerHasPlayableVowel(player) {
+    const vowels = ['A', 'E', 'I', 'O', 'U'];
+    return vowels.some(letter => board[letter] === player);
+}
+
+function updatePlayableState() {
+    if (!playerHasPlayableVowel(currentPlayer)) {
+        submitWordButton.disabled = true;
+        wordInput.disabled = true;
+        passTurnButton.disabled = false;
+        messageBox.textContent = "No playable starting vowels! You must pass your turn.";
+    } else {
+        submitWordButton.disabled = false;
+        wordInput.disabled = false;
+        passTurnButton.disabled = true;
+    }
+}
+
+passTurnButton.addEventListener('click', () => {
+    if (!gameOver) {
+        messageBox.textContent = `Player ${currentPlayer} passed – no playable vowels.`;
+        if (currentPlayer === 1) player1Plays++;
+        else player2Plays++;
+        updateGameInfo();
+        checkForWin();
+        if (!gameOver) switchPlayer();
+        updatePlayableState();
+    }
+});
+
+// Call updatePlayableState() at the start of each turn (e.g., at the end of switchPlayer and after board changes)
+function switchPlayer() {
+    currentPlayer = (currentPlayer === 1) ? 2 : 1;
+    currentPlayerDisplay.textContent = `Current Player: ${currentPlayer}`;
+    updatePlayableState();
+}
+
+// Also call updatePlayableState() after initializing game and after each word submission
+        
  // --- WINNING ANIMATION ---
        function triggerWinAnimation() {
     const keys = document.querySelectorAll('.key');
