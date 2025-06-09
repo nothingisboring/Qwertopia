@@ -369,6 +369,22 @@
                 border-radius: 0.25rem;
             }
         }
+                 /* --- WINNING ANIMATION --- */
+        .key.win-animation {
+            animation: winKeyBounce 1s;
+            background: linear-gradient(90deg, #ffcf00, #f0f, #0ff, #ffcf00);
+            color: #222;
+            box-shadow: 0 0 20px 4px #ffcf00, 0 0 12px 2px #f0f;
+            z-index: 1;
+        }
+        @keyframes winKeyBounce {
+            0%   { transform: scale(1); }
+            30%  { transform: scale(1.3) rotate(-6deg); }
+            50%  { transform: scale(0.9) rotate(6deg); }
+            70%  { transform: scale(1.1) rotate(-3deg);}
+            100% { transform: scale(1); }
+        }
+    </style>
     </style>
 </head>
 <body>
@@ -481,7 +497,32 @@
                 });
             });
         }
+  // --- Helper to get color of a letter (red/blue/none) ---
+        function getLetterColor(letter) {
+            if (player1Keys.includes(letter)) return 'red';
+            if (player2Keys.includes(letter)) return 'blue';
+            return 'none';
+        }
 
+           // --- NEW: Enforce increasing difficulty: required colored starting letters ---
+        function countStartingColoredLetters(word, player) {
+            let requiredColors = player === 1 ? ['red'] : ['blue'];
+            let count = 0;
+            for (let i = 0; i < word.length; i++) {
+                const color = getLetterColor(word[i]);
+                if ((player === 1 && color === 'red') || (player === 2 && color === 'blue')) {
+                    count++;
+                } else {
+                    break;
+                }
+            }
+            return count;
+        }
+
+        function getRequiredColoredLetters(player) {
+            // Round is based on player's plays + 1 (since 0-indexed)
+            return (player === 1 ? player1Plays : player2Plays) + 1;
+        }
         const wordnikApiKey = 'e3fhwhs2eb3firt9fp41rh44e1aibhqfmwzeb5vdcmn8xpph4';
 
         async function checkWordValidity(word) {
@@ -506,6 +547,17 @@
             }
         }
 
+ // --- WINNING ANIMATION ---
+        function triggerWinAnimation() {
+            const keys = document.querySelectorAll('.key');
+            keys.forEach((key, i) => {
+                setTimeout(() => {
+                    key.classList.add('win-animation');
+                    // Remove animation class after animation ends
+                    setTimeout(() => key.classList.remove('win-animation'), 1000);
+                }, i * 40); // Wave effect
+            });
+        
         function getKeysForWord(word) {
             const keys = new Set();
             for (const char of word.toUpperCase()) {
@@ -560,9 +612,13 @@
                 gameOver = true;
                 submitWordButton.disabled = true;
                 wordInput.disabled = true;
+
+                // WINNING ANIMATION!
+                triggerWinAnimation();
             }
         }
-
+ 
+         // --- Modified handleWordSubmit to enforce colored letter difficulty ---
         function handleWordSubmit() {
             if (gameOver) return;
 
@@ -572,7 +628,16 @@
                 return;
             }
 
-            // Check that the word starts with a letter controlled by the current player
+            // --- DIFFICULTY: Require N colored letters at start (round 2: 2, round 3: 3, up to 5) ---
+            const required = getRequiredColoredLetters(currentPlayer);
+            const startingColorCount = countStartingColoredLetters(word, currentPlayer);
+            if (startingColorCount < required) {
+                messageBox.textContent = `Word must start with at least ${required} ${currentPlayer === 1 ? 'red' : 'blue'} letter(s) in a row for this round!`;
+                wordInput.value = '';
+                return;
+            }
+
+            // Check that the word starts with a letter controlled by the current player (kept for backward compatibility)
             const startingLetter = word[0];
             if (currentPlayer === 1 && board[startingLetter] !== 1) {
                 messageBox.textContent = 'Word must start with a letter you control.';
@@ -624,11 +689,11 @@
 
                 // Check for game end before switching players
                 checkForWin();
-                
+
                 if (!gameOver) {
                     switchPlayer();
                 }
-                
+
                 wordInput.value = '';
             });
         }
