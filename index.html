@@ -24,30 +24,25 @@
             font-family: 'Montserrat', Sans-Serif;
             font-weight: 400;
         }
-
         .city {
             background-color: Indianred;
             color: white;
             padding: 10px;
-        } 
-
+        }
         .bum {
             background-color: Indianred;
             color: white;
             padding: 10px;
-        } 
-
+        }
         .arse {
             background-color: steelblue;
             color: white;
             padding: 10px;
             font-family: 'Poppins';
-        } 
-
+        }
         .city, .bum {
             font-family: 'Montserrat';
         }
-        
         #howToPlayButton {
             position: fixed;
             bottom: 1rem;
@@ -67,11 +62,9 @@
             z-index: 50;
             transition: background-color 0.3s ease;
         }
-
         #howToPlayButton:hover {
             background-color: #374151;
         }
-
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -84,7 +77,6 @@
             justify-content: center;
             z-index: 100;
         }
-
         .modal-content {
             background-color: white;
             padding: 1.5rem;
@@ -95,11 +87,9 @@
             max-height: 80vh;
             overflow-y: auto;
         }
-
         .hidden {
             display: none;
         }
-
         #closeModalButton {
             background-color: #1f2937;
             color: white;
@@ -110,11 +100,9 @@
             width: 100%;
             margin-top: 1rem;
         }
-
         #closeModalButton:hover {
             background-color: #374151;
         }
-
         #game-container {
             display: flex;
             flex-direction: column;
@@ -133,7 +121,6 @@
             box-shadow: 0 6px 10px -2px rgba(0, 0, 0, 0.3), 0 3px 7px -3px rgba(0, 0, 0, 0.2);
             margin-bottom: 2rem;
         }
-
         .key {
             display: flex;
             align-items: center;
@@ -176,13 +163,21 @@
              border-color: #38bdf8;
              background-color: rgba(56, 189, 248, 0.3);
         }
-
         .key.empty {
             background-color: #6b7280;
             border-color: #4b5563;
             color: #f9fafb;
-        }       
-       
+        }
+        /* Highlight for freeze nomination */
+        .key-freezable {
+            border: 3px solid #94e2ff !important;
+            cursor: pointer !important;
+            animation: pulse-freeze 1s infinite alternate;
+        }
+        @keyframes pulse-freeze {
+            from { box-shadow: 0 0 5px 0 #b3ecff; }
+            to   { box-shadow: 0 0 18px 4px #b3ecff; }
+        }
         #word-input {
             margin-top: 1.5rem;
             display: flex;
@@ -317,7 +312,6 @@
             width: 100%;
             text-align: center;
         }
-
         .word-list li {
             list-style: none;
             margin-bottom: 0.5em;
@@ -331,7 +325,6 @@
             color: #d1d5db;
             text-align: center;
         }
-
         @media (max-width: 768px) {
             #keyboard {
                 grid-template-columns: repeat(10, 2.5rem);
@@ -384,7 +377,7 @@
                 border-width: 0.08rem;
                 border-radius: 0.25rem;
             }
-             #word-input input,
+            #word-input input,
             #word-input button {
                 font-size: 0.8rem;
                 padding: 0.5rem;
@@ -392,12 +385,12 @@
             }
             .word-list {
                 font-size: 0.6rem;
-                 max-height: 6rem;
+                max-height: 6rem;
             }
             .word-list-title {
                 font-size: 0.85rem;
             }
-             #message-box {
+            #message-box {
                 font-size: 0.8rem;
                 min-width: 95%;
                 padding: 0.6rem;
@@ -405,48 +398,17 @@
             }
         }
         .key-frozen {
-  outline: 3px solid #b3ecff !important;
-  background-image: repeating-linear-gradient(135deg, #b3ecff 0 8px, transparent 8px 12px);
-  position: relative;
-}
-.key-frozen::after {
-  content: "❄";
-  position: absolute;
-  right: 2px;
-  top: 2px;
-  font-size: 0.9em;
-}
-        
-        
-/* Add in your style block: */
-.key-capture-animation {
-  animation: keyCapture 0.7s;
-}
-@keyframes keyCapture {
-  0% { box-shadow: 0 0 0 0 #fff; transform: scale(1.2);}
-  60% { box-shadow: 0 0 20px 8px #fff; transform: scale(1);}
-  100% { box-shadow: none; transform: scale(1);}
-}
-.key-lost-animation {
-  animation: keyLost 0.7s;
-}
-@keyframes keyLost {
-  0% { filter: grayscale(0); }
-  50% { filter: grayscale(0.8) brightness(2);}
-  100% { filter: grayscale(0); }
-}
-.key-frozen {
-  outline: 3px solid #b3ecff;
-  background-image: repeating-linear-gradient(135deg, #b3ecff 0 8px, transparent 8px 12px);
-  position: relative;
-}
-.key-frozen::after {
-  content: "❄";
-  position: absolute;
-  right: 2px;
-  top: 2px;
-  font-size: 0.9em;
-}
+            outline: 3px solid #b3ecff !important;
+            background-image: repeating-linear-gradient(135deg, #b3ecff 0 8px, transparent 8px 12px);
+            position: relative;
+        }
+        .key-frozen::after {
+            content: "❄";
+            position: absolute;
+            right: 2px;
+            top: 2px;
+            font-size: 0.9em;
+        }
         .key.win-animation {
             animation: winKeyBounce 1s;
             background: linear-gradient(90deg, #ffcf00, #f0f, #0ff, #ffcf00);
@@ -466,27 +428,20 @@
 <body>
     <!-- Help button -->
     <button id="howToPlayButton" title="How to Play">?</button>
-
     <!-- Modal -->
     <div id="howToPlayModal" class="modal-overlay hidden">
         <div class="modal-content">
             <h2 class="city">How to play <b>QWERTOPIA</b>, the word game where you compete to gain the most keyboard territory!</h2>
             <p class="arse">
-                <b>1:</b> Your word must begin with a letter from your side (red/blue).
-                <br>
-                <b>2:</b> Then you try to use as many of your opponent's letters to gain territorial control.
-                <br>
-                <b>3:</b> Each player gets exactly 5 turns.
-                <br>
-                <b>4:</b> Every subsequent turn requires you to start with 2, 3, 4 or 5 of the letters you control. 
-                <br>
-                <b>5:</b> The winner is the keyboard warrior controls more territory after both players have submitted 5 words. 
-                <br><br>
+                <b>1:</b> Your word must begin with a letter from your side (red/blue).<br>
+                <b>2:</b> Then you try to use as many of your opponent's letters to gain territorial control.<br>
+                <b>3:</b> Each player gets exactly 5 turns.<br>
+                <b>4:</b> Every subsequent turn requires you to start with 2, 3, 4 or 5 of the letters you control.<br>
+                <b>5:</b> The winner is the keyboard warrior controls more territory after both players have submitted 5 words.<br><br>
             </p>
             <button id="closeModalButton">Got it!</button>
         </div>
     </div>
-
     <div id="game-container">
         <div id="keyboard"></div>
         <div id="word-input">
@@ -509,400 +464,384 @@
         </div>
     </div>
     <script>
-        
-    // --- QWERTOPIA MAIN GAME LOGIC WITH FREEZE FEATURE ---
-
-const keyboardContainer = document.getElementById('keyboard');
-const wordInput = document.getElementById('word-input-box');
-const submitWordButton = document.getElementById('submit-word');
-const passTurnButton = document.getElementById('pass-turn');
-const currentPlayerDisplay = document.getElementById('current-player');
-const messageBox = document.getElementById('message-box');
-const gameInfoDisplay = document.getElementById('game-info');
-const player1WordsList = document.getElementById('player1-words');
-const player2WordsList = document.getElementById('player2-words');
-
-const howToPlayButton = document.getElementById('howToPlayButton');
-const howToPlayModal = document.getElementById('howToPlayModal');
-const closeModalButton = document.getElementById('closeModalButton');
-
-// Keyboard layout
-const keyboardRows = [
-    ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
-    ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
-    ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
-];
-
-let player1Keys = [];
-let player2Keys = [];
-let board = {};
-let currentPlayer = 1;
-let gameOver = false;
-let player1Words = [];
-let player2Words = [];
-let player1Plays = 0;
-let player2Plays = 0;
-
-// --- FREEZE FEATURE ---
-let frozenKeys = new Set();
-let freezeQueue = []; // Array of {key, untilRound}
-
-// --- MODAL HANDLING ---
-howToPlayButton.addEventListener('click', () => {
-    howToPlayModal.classList.remove('hidden');
-});
-closeModalButton.addEventListener('click', () => {
-    howToPlayModal.classList.add('hidden');
-});
-howToPlayModal.addEventListener('click', (e) => {
-    if (e.target === howToPlayModal) {
-        howToPlayModal.classList.add('hidden');
-    }
-});
-
-// --- RANDOMIZE KEYBOARD BLOCKS ---
-function randomizeKeyboardBlocks() {
-    player1Keys = [];
-    player2Keys = [];
-    keyboardRows.forEach(row => {
-        const split = Math.floor(row.length / 2);
-        const blocks = [row.slice(0, split), row.slice(split)];
-        if (Math.random() < 0.5) {
-            player1Keys.push(...blocks[0]);
-            player2Keys.push(...blocks[1]);
-        } else {
-            player2Keys.push(...blocks[0]);
-            player1Keys.push(...blocks[1]);
-        }
-    });
-}
-
-// --- BUILD THE KEYBOARD UI ---
-function createKeyboard() {
-    keyboardContainer.innerHTML = '';
-    keyboardRows.forEach(row => {
-        row.forEach(keyChar => {
-            const key = document.createElement('div');
-            key.classList.add('key');
-            key.textContent = keyChar;
-            if (player1Keys.includes(keyChar)) {
-                key.classList.add('player1');
-                board[keyChar] = 1;
-            } else if (player2Keys.includes(keyChar)) {
-                key.classList.add('player2');
-                board[keyChar] = 2;
-            } else {
-                board[keyChar] = 0;
-                key.classList.add('empty');
-            }
-            keyboardContainer.appendChild(key);
+        // ==== GAME STATE ====
+        const keyboardContainer = document.getElementById('keyboard');
+        const wordInput = document.getElementById('word-input-box');
+        const submitWordButton = document.getElementById('submit-word');
+        const passTurnButton = document.getElementById('pass-turn');
+        const currentPlayerDisplay = document.getElementById('current-player');
+        const messageBox = document.getElementById('message-box');
+        const gameInfoDisplay = document.getElementById('game-info');
+        const player1WordsList = document.getElementById('player1-words');
+        const player2WordsList = document.getElementById('player2-words');
+        const howToPlayButton = document.getElementById('howToPlayButton');
+        const howToPlayModal = document.getElementById('howToPlayModal');
+        const closeModalButton = document.getElementById('closeModalButton');
+        const keyboardRows = [
+            ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P'],
+            ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L'],
+            ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
+        ];
+        let player1Keys = [];
+        let player2Keys = [];
+        let board = {};
+        let currentPlayer = 1;
+        let gameOver = false;
+        let player1Words = [];
+        let player2Words = [];
+        let player1Plays = 0;
+        let player2Plays = 0;
+        let frozenKeys = new Set();
+        let freezeQueue = [];
+        // ==== MODAL HANDLING ====
+        howToPlayButton.addEventListener('click', () => {
+            howToPlayModal.classList.remove('hidden');
         });
-    });
-    updateFrozenKeyStyles();
-}
-
-// --- GET COLOR/CONTROL OF A LETTER ---
-function getLetterColor(letter) {
-    letter = letter.toUpperCase();
-    if (board[letter] === 1) return 'red';
-    if (board[letter] === 2) return 'blue';
-    return 'none';
-}
-
-// --- COUNT NUMBER OF INITIAL CONTROLLED LETTERS IN WORD ---
-function countStartingColoredLetters(word, player) {
-    word = word.toUpperCase();
-    let count = 0;
-    for (let i = 0; i < word.length; i++) {
-        const color = getLetterColor(word[i]);
-        if ((player === 1 && color === 'red') || (player === 2 && color === 'blue')) {
-            count++;
-        } else {
-            break;
+        closeModalButton.addEventListener('click', () => {
+            howToPlayModal.classList.add('hidden');
+        });
+        howToPlayModal.addEventListener('click', (e) => {
+            if (e.target === howToPlayModal) {
+                howToPlayModal.classList.add('hidden');
+            }
+        });
+        // ==== KEYBOARD BLOCK RANDOMIZATION ====
+        function randomizeKeyboardBlocks() {
+            player1Keys = [];
+            player2Keys = [];
+            keyboardRows.forEach(row => {
+                const split = Math.floor(row.length / 2);
+                const blocks = [row.slice(0, split), row.slice(split)];
+                if (Math.random() < 0.5) {
+                    player1Keys.push(...blocks[0]);
+                    player2Keys.push(...blocks[1]);
+                } else {
+                    player2Keys.push(...blocks[0]);
+                    player1Keys.push(...blocks[1]);
+                }
+            });
         }
-    }
-    return count;
-}
-
-function getRequiredColoredLetters(player) {
-    return (player === 1 ? player1Plays : player2Plays) + 1;
-}
-const wordnikApiKey = 'e3fhwhs2eb3firt9fp41rh44e1aibhqfmwzeb5vdcmn8xpph4';
-
-async function checkWordValidity(word) {
-    if (!wordnikApiKey) {
-        console.warn("Wordnik API key is missing. Word validity check will always pass (for testing).");
-        return true;
-    }
-    const url = `https://api.wordnik.com/v4/word.json/${word}/definitions?limit=2&api_key=${wordnikApiKey}`;
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            return false;
+        // ==== KEYBOARD RENDERING ====
+        function createKeyboard() {
+            keyboardContainer.innerHTML = '';
+            keyboardRows.forEach(row => {
+                row.forEach(keyChar => {
+                    const key = document.createElement('div');
+                    key.classList.add('key');
+                    key.textContent = keyChar;
+                    if (player1Keys.includes(keyChar)) {
+                        key.classList.add('player1');
+                        board[keyChar] = 1;
+                    } else if (player2Keys.includes(keyChar)) {
+                        key.classList.add('player2');
+                        board[keyChar] = 2;
+                    } else {
+                        board[keyChar] = 0;
+                        key.classList.add('empty');
+                    }
+                    keyboardContainer.appendChild(key);
+                });
+            });
+            updateFrozenKeyStyles();
         }
-        const data = await response.json();
-        return Array.isArray(data) && data.length > 0 && !data[0].partOfSpeech?.toLowerCase().includes('proper-noun');
-    } catch (error) {
-        console.error('Error checking word:', error);
-        return false;
-    }
-}
-
-function playerHasPlayableVowel(player) {
-    const vowels = ['A', 'E', 'I', 'O', 'U'];
-    return vowels.some(letter => board[letter] === player);
-}
-
-function updatePlayableState() {
-    if (!playerHasPlayableVowel(currentPlayer)) {
-        submitWordButton.disabled = true;
-        wordInput.disabled = true;
-        passTurnButton.disabled = false;
-        messageBox.textContent = "No playable starting vowels! You must pass your turn.";
-    } else {
-        submitWordButton.disabled = false;
-        wordInput.disabled = false;
-        passTurnButton.disabled = true;
-    }
-}
-
-// --- FREEZE KEY MANAGEMENT ---
-function freezeKey(keyChar, untilRound) {
-    frozenKeys.add(keyChar);
-    freezeQueue.push({key: keyChar, untilRound});
-    updateFrozenKeyStyles();
-}
-function unfreezeKeys(currentRound) {
-    freezeQueue = freezeQueue.filter(f => {
-        if (f.untilRound <= currentRound) {
-            frozenKeys.delete(f.key);
-            return false;
+        // ==== FREEZE NOMINATION LOGIC ====
+        let freezeNominationActive = false;
+        let freezeResolve = null;
+        function promptFreezeNomination(oppKeys) {
+            freezeNominationActive = true;
+            document.querySelectorAll('.key').forEach(keyEl => {
+                if (oppKeys.includes(keyEl.textContent)) {
+                    keyEl.classList.add('key-freezable');
+                    keyEl.addEventListener('click', freezeKeyClickHandler);
+                }
+            });
+            messageBox.textContent += "\nClick an opponent's key to freeze it for one round!";
+            return new Promise(resolve => { freezeResolve = resolve; });
         }
-        return true;
-    });
-}
-function updateFrozenKeyStyles() {
-    document.querySelectorAll('.key').forEach(keyEl => {
-        if (frozenKeys.has(keyEl.textContent)) {
-            keyEl.classList.add('key-frozen');
-        } else {
-            keyEl.classList.remove('key-frozen');
+        function freezeKeyClickHandler(e) {
+            if (!freezeNominationActive) return;
+            const letter = e.target.textContent;
+            document.querySelectorAll('.key.key-freezable').forEach(keyEl => {
+                keyEl.classList.remove('key-freezable');
+                keyEl.removeEventListener('click', freezeKeyClickHandler);
+            });
+            freezeNominationActive = false;
+            if (freezeResolve) freezeResolve(letter);
+            freezeResolve = null;
         }
-    });
-}
-
-// --- EVENT: PASS TURN ---
-passTurnButton.addEventListener('click', () => {
-    if (!gameOver) {
-        messageBox.textContent = `Player ${currentPlayer} passed – no playable vowels.`;
-        if (currentPlayer === 1) player1Plays++;
-        else player2Plays++;
-        updateGameInfo();
-        checkForWin();
-        if (!gameOver) switchPlayer();
-    }
-});
-
-// --- SWITCH PLAYER & HANDLE UNFREEZING ---
-function switchPlayer() {
-    currentPlayer = (currentPlayer === 1) ? 2 : 1;
-    currentPlayerDisplay.textContent = `Current Player: ${currentPlayer}`;
-    // Unfreeze any keys whose freeze has expired for the new current player's round
-    const round = currentPlayer === 1 ? player1Plays : player2Plays;
-    unfreezeKeys(round);
-    updateFrozenKeyStyles();
-    updatePlayableState();
-}
-
-// --- GET ALL KEYS IN A WORD THAT MATTER ---
-function getKeysForWord(word) {
-    const keys = new Set();
-    for (const char of word.toUpperCase()) {
-        if (player1Keys.includes(char) || player2Keys.includes(char)) {
-            keys.add(char);
+        // ==== GAME HELPERS ====
+        function getLetterColor(letter) {
+            letter = letter.toUpperCase();
+            if (board[letter] === 1) return 'red';
+            if (board[letter] === 2) return 'blue';
+            return 'none';
         }
-    }
-    return Array.from(keys);
-}
-
-// --- UPDATE BOARD VISUALS BASED ON CONTROL ---
-function updateBoardDisplay() {
-    const keyElements = keyboardContainer.querySelectorAll('.key');
-    keyElements.forEach((keyElement, index) => {
-        const keyChar = keyElement.textContent;
-        if (board[keyChar] === 1) {
-            keyElement.classList.add('player1', 'controlled');
-            keyElement.classList.remove('player2', 'empty');
-        } else if (board[keyChar] === 2) {
-            keyElement.classList.add('player2', 'controlled');
-            keyElement.classList.remove('player1', 'empty');
-        } else {
-            keyElement.classList.remove('player1', 'player2', 'controlled');
-            keyElement.classList.add('empty');
+        function countStartingColoredLetters(word, player) {
+            word = word.toUpperCase();
+            let count = 0;
+            for (let i = 0; i < word.length; i++) {
+                const color = getLetterColor(word[i]);
+                if ((player === 1 && color === 'red') || (player === 2 && color === 'blue')) {
+                    count++;
+                } else {
+                    break;
+                }
+            }
+            return count;
         }
-        // frozen keys
-        if (frozenKeys.has(keyChar)) {
-            keyElement.classList.add('key-frozen');
-        } else {
-            keyElement.classList.remove('key-frozen');
+        function getRequiredColoredLetters(player) {
+            return (player === 1 ? player1Plays : player2Plays) + 1;
         }
-    });
-}
-
-// --- UPDATE INFO ---
-function updateGameInfo() {
-    const p1 = Object.values(board).filter(v => v === 1).length;
-    const p2 = Object.values(board).filter(v => v === 2).length;
-    gameInfoDisplay.textContent = `Player 1: ${player1Plays}/5 words | Player 2: ${player2Plays}/5 words | Keys: P1 [${p1}] - P2 [${p2}]`;
-}
-function renderWordLists() {
-    player1WordsList.innerHTML = player1Words.map((w, i) =>
-        `<li><span class="word-chip${w.length>15?' long':''}">${w}</span></li>`
-    ).join('');
-    player2WordsList.innerHTML = player2Words.map((w, i) =>
-        `<li><span class="word-chip${w.length>15?' long':''}">${w}</span></li>`
-    ).join('');
-}
-
-// --- WIN ANIMATION ---
-function triggerWinAnimation() {
-    const keys = document.querySelectorAll('.key');
-    keys.forEach((key, i) => {
-        setTimeout(() => {
-            key.classList.add('win-animation');
-            setTimeout(() => key.classList.remove('win-animation'), 1000);
-        }, i * 40);
-    });
-}
-
-// --- CHECK IF GAME IS OVER ---
-function checkForWin() {
-    if (player1Plays >= 5 && player2Plays >= 5) {
-        let player1ControlCount = 0;
-        let player2ControlCount = 0;
-        for (const key in board) {
-            if (board[key] === 1) player1ControlCount++;
-            else if (board[key] === 2) player2ControlCount++;
-        }
-        if (player1ControlCount > player2ControlCount) {
-            messageBox.textContent = `Game Over! Player 1 wins with ${player1ControlCount} keys controlled!`;
-        } else if (player2ControlCount > player1ControlCount) {
-            messageBox.textContent = `Game Over! Player 2 wins with ${player2ControlCount} keys controlled!`;
-        } else {
-            messageBox.textContent = `Game Over! It's a tie with ${player1ControlCount} keys each!`;
-        }
-        gameOver = true;
-        submitWordButton.disabled = true;
-        wordInput.disabled = true;
-        triggerWinAnimation();
-    }
-}
-
-// --- WORD SUBMISSION & FREEZE LOGIC ---
-function handleWordSubmit() {
-    if (gameOver) return;
-    const word = wordInput.value.trim().toUpperCase();
-    if (!word) {
-        messageBox.textContent = 'Please enter a word.';
-        return;
-    }
-    const required = getRequiredColoredLetters(currentPlayer);
-    const startingColorCount = countStartingColoredLetters(word, currentPlayer);
-    if (startingColorCount < required) {
-        messageBox.textContent = `Word must start with at least ${required} ${currentPlayer === 1 ? 'red' : 'blue'} letter(s) in a row for this round!`;
-        wordInput.value = '';
-        return;
-    }
-    const startingLetter = word[0];
-    if (currentPlayer === 1 && board[startingLetter] !== 1) {
-        messageBox.textContent = 'Word must start with a letter you control.';
-        wordInput.value = '';
-        return;
-    }
-    if (currentPlayer === 2 && board[startingLetter] !== 2) {
-        messageBox.textContent = 'Word must start with a letter you control.';
-        wordInput.value = '';
-        return;
-    }
-
-    checkWordValidity(word).then(isValidWord => {
-        if (!isValidWord) {
-            messageBox.textContent = 'Invalid word. Try again.';
-            wordInput.value = '';
-            return;
-        }
-
-        const keysToControl = getKeysForWord(word);
-        // Only capture keys that are not frozen!
-        let opponentControlledKeys = keysToControl.filter(key =>
-            ((currentPlayer === 1 && board[key] === 2) ||
-             (currentPlayer === 2 && board[key] === 1)) &&
-            !frozenKeys.has(key)
-        );
-
-        opponentControlledKeys.forEach(key => board[key] = currentPlayer);
-        updateBoardDisplay();
-
-        if (currentPlayer === 1) {
-            player1Words.push(word);
-            player1Plays++;
-        } else {
-            player2Words.push(word);
-            player2Plays++;
-        }
-        renderWordLists();
-        updateGameInfo();
-
-        let msg = '';
-        if (opponentControlledKeys.length === 0) {
-            msg = `${word} submitted! No opponent letters captured.`;
-        } else {
-            msg = `${word} captured ${opponentControlledKeys.length} letters!`;
-        }
-
-        // --- FREEZE FEATURE after a valid word is accepted ---
-        if (["Q", "X", "Z"].some(ltr => word.includes(ltr))) {
-            // Freeze a random opponent key for 1 round
-            let oppPlayer = currentPlayer === 1 ? 2 : 1;
-            let oppKeys = Object.keys(board).filter(
-                k => board[k] === oppPlayer && !frozenKeys.has(k)
-            );
-            if (oppKeys.length) {
-                let toFreeze = oppKeys[Math.floor(Math.random() * oppKeys.length)];
-                // Freeze until opponent's next round
-                let untilRound = (oppPlayer === 1 ? player1Plays : player2Plays) + 1;
-                freezeKey(toFreeze, untilRound);
-                msg += `\n${toFreeze} is frozen for 1 round!`;
+        const wordnikApiKey = 'e3fhwhs2eb3firt9fp41rh44e1aibhqfmwzeb5vdcmn8xpph4';
+        async function checkWordValidity(word) {
+            if (!wordnikApiKey) {
+                console.warn("Wordnik API key is missing. Word validity check will always pass (for testing).");
+                return true;
+            }
+            const url = `https://api.wordnik.com/v4/word.json/${word}/definitions?limit=2&api_key=${wordnikApiKey}`;
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    return false;
+                }
+                const data = await response.json();
+                return Array.isArray(data) && data.length > 0 && !data[0].partOfSpeech?.toLowerCase().includes('proper-noun');
+            } catch (error) {
+                console.error('Error checking word:', error);
+                return false;
             }
         }
-
-        messageBox.textContent = msg;
-
-        checkForWin();
-
-        if (!gameOver) {
-            switchPlayer();
+        function playerHasPlayableVowel(player) {
+            const vowels = ['A', 'E', 'I', 'O', 'U'];
+            return vowels.some(letter => board[letter] === player);
         }
-
-        wordInput.value = '';
-    });
-}
-
-// --- MAIN GAME INIT SEQUENCE ---
-randomizeKeyboardBlocks();
-createKeyboard();
-updateGameInfo();
-updateBoardDisplay();
-renderWordLists();
-updatePlayableState();
-
-// --- EVENT LISTENERS ---
-submitWordButton.addEventListener('click', handleWordSubmit);
-wordInput.addEventListener('keypress', (e) => {
-    if (e.key === 'Enter') {
-        handleWordSubmit();
-    }
-});
+        function updatePlayableState() {
+            if (!playerHasPlayableVowel(currentPlayer)) {
+                submitWordButton.disabled = true;
+                wordInput.disabled = true;
+                passTurnButton.disabled = false;
+                messageBox.textContent = "No playable starting vowels! You must pass your turn.";
+            } else if (freezeNominationActive) {
+                submitWordButton.disabled = true;
+                wordInput.disabled = true;
+                passTurnButton.disabled = true;
+            } else {
+                submitWordButton.disabled = false;
+                wordInput.disabled = false;
+                passTurnButton.disabled = true;
+            }
+        }
+        function freezeKey(keyChar, untilRound) {
+            frozenKeys.add(keyChar);
+            freezeQueue.push({key: keyChar, untilRound});
+            updateFrozenKeyStyles();
+        }
+        function unfreezeKeys(currentRound) {
+            freezeQueue = freezeQueue.filter(f => {
+                if (f.untilRound <= currentRound) {
+                    frozenKeys.delete(f.key);
+                    return false;
+                }
+                return true;
+            });
+        }
+        function updateFrozenKeyStyles() {
+            document.querySelectorAll('.key').forEach(keyEl => {
+                if (frozenKeys.has(keyEl.textContent)) {
+                    keyEl.classList.add('key-frozen');
+                } else {
+                    keyEl.classList.remove('key-frozen');
+                }
+            });
+        }
+        function getKeysForWord(word) {
+            const keys = new Set();
+            for (const char of word.toUpperCase()) {
+                if (player1Keys.includes(char) || player2Keys.includes(char)) {
+                    keys.add(char);
+                }
+            }
+            return Array.from(keys);
+        }
+        function updateBoardDisplay() {
+            const keyElements = keyboardContainer.querySelectorAll('.key');
+            keyElements.forEach((keyElement) => {
+                const keyChar = keyElement.textContent;
+                if (board[keyChar] === 1) {
+                    keyElement.classList.add('player1', 'controlled');
+                    keyElement.classList.remove('player2', 'empty');
+                } else if (board[keyChar] === 2) {
+                    keyElement.classList.add('player2', 'controlled');
+                    keyElement.classList.remove('player1', 'empty');
+                } else {
+                    keyElement.classList.remove('player1', 'player2', 'controlled');
+                    keyElement.classList.add('empty');
+                }
+                // frozen keys
+                if (frozenKeys.has(keyChar)) {
+                    keyElement.classList.add('key-frozen');
+                } else {
+                    keyElement.classList.remove('key-frozen');
+                }
+            });
+        }
+        function updateGameInfo() {
+            const p1 = Object.values(board).filter(v => v === 1).length;
+            const p2 = Object.values(board).filter(v => v === 2).length;
+            gameInfoDisplay.textContent = `Player 1: ${player1Plays}/5 words | Player 2: ${player2Plays}/5 words | Keys: P1 [${p1}] - P2 [${p2}]`;
+        }
+        function renderWordLists() {
+            player1WordsList.innerHTML = player1Words.map((w, i) =>
+                `<li><span class="word-chip${w.length>15?' long':''}">${w}</span></li>`
+            ).join('');
+            player2WordsList.innerHTML = player2Words.map((w, i) =>
+                `<li><span class="word-chip${w.length>15?' long':''}">${w}</span></li>`
+            ).join('');
+        }
+        function triggerWinAnimation() {
+            const keys = document.querySelectorAll('.key');
+            keys.forEach((key, i) => {
+                setTimeout(() => {
+                    key.classList.add('win-animation');
+                    setTimeout(() => key.classList.remove('win-animation'), 1000);
+                }, i * 40);
+            });
+        }
+        function checkForWin() {
+            if (player1Plays >= 5 && player2Plays >= 5) {
+                let player1ControlCount = 0;
+                let player2ControlCount = 0;
+                for (const key in board) {
+                    if (board[key] === 1) player1ControlCount++;
+                    else if (board[key] === 2) player2ControlCount++;
+                }
+                if (player1ControlCount > player2ControlCount) {
+                    messageBox.textContent = `Game Over! Player 1 wins with ${player1ControlCount} keys controlled!`;
+                } else if (player2ControlCount > player1ControlCount) {
+                    messageBox.textContent = `Game Over! Player 2 wins with ${player2ControlCount} keys controlled!`;
+                } else {
+                    messageBox.textContent = `Game Over! It's a tie with ${player1ControlCount} keys each!`;
+                }
+                gameOver = true;
+                submitWordButton.disabled = true;
+                wordInput.disabled = true;
+                triggerWinAnimation();
+            }
+        }
+        // ==== MAIN GAME LOGIC ====
+        passTurnButton.addEventListener('click', () => {
+            if (!gameOver && !freezeNominationActive) {
+                messageBox.textContent = `Player ${currentPlayer} passed – no playable vowels.`;
+                if (currentPlayer === 1) player1Plays++;
+                else player2Plays++;
+                updateGameInfo();
+                checkForWin();
+                if (!gameOver) switchPlayer();
+            }
+        });
+        function switchPlayer() {
+            currentPlayer = (currentPlayer === 1) ? 2 : 1;
+            currentPlayerDisplay.textContent = `Current Player: ${currentPlayer}`;
+            const round = currentPlayer === 1 ? player1Plays : player2Plays;
+            unfreezeKeys(round);
+            updateFrozenKeyStyles();
+            updatePlayableState();
+        }
+        function handleWordSubmit() {
+            if (gameOver || freezeNominationActive) return;
+            const word = wordInput.value.trim().toUpperCase();
+            if (!word) {
+                messageBox.textContent = 'Please enter a word.';
+                return;
+            }
+            const required = getRequiredColoredLetters(currentPlayer);
+            const startingColorCount = countStartingColoredLetters(word, currentPlayer);
+            if (startingColorCount < required) {
+                messageBox.textContent = `Word must start with at least ${required} ${currentPlayer === 1 ? 'red' : 'blue'} letter(s) in a row for this round!`;
+                wordInput.value = '';
+                return;
+            }
+            const startingLetter = word[0];
+            if (currentPlayer === 1 && board[startingLetter] !== 1) {
+                messageBox.textContent = 'Word must start with a letter you control.';
+                wordInput.value = '';
+                return;
+            }
+            if (currentPlayer === 2 && board[startingLetter] !== 2) {
+                messageBox.textContent = 'Word must start with a letter you control.';
+                wordInput.value = '';
+                return;
+            }
+            checkWordValidity(word).then(isValidWord => {
+                if (!isValidWord) {
+                    messageBox.textContent = 'Invalid word. Try again.';
+                    wordInput.value = '';
+                    return;
+                }
+                const keysToControl = getKeysForWord(word);
+                // Only capture keys that are not frozen!
+                let opponentControlledKeys = keysToControl.filter(key =>
+                    ((currentPlayer === 1 && board[key] === 2) ||
+                    (currentPlayer === 2 && board[key] === 1)) &&
+                    !frozenKeys.has(key)
+                );
+                opponentControlledKeys.forEach(key => board[key] = currentPlayer);
+                updateBoardDisplay();
+                if (currentPlayer === 1) {
+                    player1Words.push(word);
+                    player1Plays++;
+                } else {
+                    player2Words.push(word);
+                    player2Plays++;
+                }
+                renderWordLists();
+                updateGameInfo();
+                let msg = '';
+                if (opponentControlledKeys.length === 0) {
+                    msg = `${word} submitted! No opponent letters captured.`;
+                } else {
+                    msg = `${word} captured ${opponentControlledKeys.length} letters!`;
+                }
+                // --- NOMINATE FREEZE FEATURE ---
+                if (["Q", "X", "Z"].some(ltr => word.includes(ltr))) {
+                    let oppPlayer = currentPlayer === 1 ? 2 : 1;
+                    let oppKeys = Object.keys(board).filter(
+                        k => board[k] === oppPlayer && !frozenKeys.has(k)
+                    );
+                    if (oppKeys.length) {
+                        updatePlayableState();
+                        promptFreezeNomination(oppKeys).then(toFreeze => {
+                            let untilRound = (oppPlayer === 1 ? player1Plays : player2Plays) + 1;
+                            freezeKey(toFreeze, untilRound);
+                            messageBox.textContent += `\n${toFreeze} is frozen for 1 round!`;
+                            updateBoardDisplay();
+                            // After nomination, allow next player
+                            checkForWin();
+                            if (!gameOver) switchPlayer();
+                        });
+                        return; // Do not advance turn until freeze nomination done
+                    }
+                }
+                messageBox.textContent = msg;
+                checkForWin();
+                if (!gameOver) switchPlayer();
+                wordInput.value = '';
+            });
+        }
+        // ==== INIT GAME ====
+        randomizeKeyboardBlocks();
+        createKeyboard();
+        updateGameInfo();
+        updateBoardDisplay();
+        renderWordLists();
+        updatePlayableState();
+        // ==== EVENT LISTENERS ====
+        submitWordButton.addEventListener('click', handleWordSubmit);
+        wordInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                handleWordSubmit();
+            }
+        });
     </script>
 </body>
 </html>
