@@ -500,8 +500,9 @@
   // --- Helper to get color of a letter (red/blue/none) ---
        function getLetterColor(letter) {
     letter = letter.toUpperCase();
-    if (player1Keys.includes(letter)) return 'red';
-    if (player2Keys.includes(letter)) return 'blue';
+    // board[letter] === 1 => player 1 controls, === 2 => player 2 controls
+    if (board[letter] === 1) return 'red';
+    if (board[letter] === 2) return 'blue';
     return 'none';
 }
 
