@@ -563,19 +563,23 @@ function countStartingColoredLetters(word, player) {
         }
         const wordnikApiKey = 'e3fhwhs2eb3firt9fp41rh44e1aibhqfmwzeb5vdcmn8xpph4';
 
-        async function checkWordValidity(word) {
-    if (!wordnikApiKey) return false;
-    const url = `https://api.wordnik.com/v4/word.json/${word}/definitions?limit=1&api_key=${wordnikApiKey}`;
+       // Improved Wordnik word validity check
+async function checkWordValidity(word) {
+    if (!wordnikApiKey) {
+        console.warn("Wordnik API key is missing. Word validity check will always pass (for testing).");
+        return true;
+    }
+    const url = `https://api.wordnik.com/v4/word.json/${word}/definitions?limit=2&api_key=${wordnikApiKey}`;
     try {
         const response = await fetch(url);
-        if (response.status === 404) return false;
-        if (!response.ok) return false; // reject on other server errors
-
-        const definitions = await response.json();
-        // Only accept if definitions array is not empty
-        return Array.isArray(definitions) && definitions.length > 0;
+        if (!response.ok) {
+            return false;
+        }
+        const data = await response.json();
+        // Consider valid only if there is at least one definition string and it's not a proper noun
+        return Array.isArray(data) && data.length > 0 && !data[0].partOfSpeech?.toLowerCase().includes('proper-noun');
     } catch (error) {
-        // On error, reject (not accept) the word
+        console.error('Error checking word:', error);
         return false;
     }
 }
@@ -620,9 +624,22 @@ function getKeysForWord(word) {
             });
         }
 
-        function updateGameInfo() {
-            gameInfoDisplay.textContent = `Player 1: ${player1Plays}/5 words | Player 2: ${player2Plays}/5 words`;
-        }
+        // Update the updateGameInfo function to show controlled keys
+function updateGameInfo() {
+    const p1 = Object.values(board).filter(v => v === 1).length;
+    const p2 = Object.values(board).filter(v => v === 2).length;
+    gameInfoDisplay.textContent = `Player 1: ${player1Plays}/5 words | Player 2: ${player2Plays}/5 words | Keys: P1 [${p1}] - P2 [${p2}]`;
+}
+
+        // Improved rendering for word lists as chips with numbers
+function renderWordLists() {
+    player1WordsList.innerHTML = player1Words.map((w, i) =>
+        `<li><span class="word-num">${i + 1}.</span> <span class="word-chip" style="background:#f87171;color:#fff;">${w}</span></li>`
+    ).join('');
+    player2WordsList.innerHTML = player2Words.map((w, i) =>
+        `<li><span class="word-num">${i + 1}.</span> <span class="word-chip" style="background:#38bdf8;color:#fff;">${w}</span></li>`
+    ).join('');
+}
 
         function checkForWin() {
             // Check if both players have completed 5 turns
@@ -702,18 +719,18 @@ function getKeysForWord(word) {
                 updateBoardDisplay();
 
                 // Add word to player's list
-                if (currentPlayer === 1) {
-                    player1Words.push(word);
-                    player1WordsList.innerHTML = player1Words.map(w => `<li>${w}</li>`).join('');
-                    player1Plays++;
-                } else {
-                    player2Words.push(word);
-                    player2WordsList.innerHTML = player2Words.map(w => `<li>${w}</li>`).join('');
-                    player2Plays++;
-                }
+                // In handleWordSubmit, after a word is accepted, use the improved renderWordLists:
+if (currentPlayer === 1) {
+    player1Words.push(word);
+} else {
+    player2Words.push(word);
+}
+renderWordLists();
+if (currentPlayer === 1) player1Plays++;
+else player2Plays++;
 
-                // Update displays
-                updateGameInfo();
+// Update displays
+updateGameInfo();
 
                 if (opponentControlledKeys.length === 0) {
                     messageBox.textContent = `${word} submitted! No opponent letters captured.`;
