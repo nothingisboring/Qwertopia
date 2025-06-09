@@ -612,14 +612,27 @@ function updatePlayableState() {
     if (!playerHasPlayableVowel(currentPlayer)) {
         submitWordButton.disabled = true;
         wordInput.disabled = true;
-        passTurnButton.disabled = false; // ENABLE pass if no playable vowels
+        passTurnButton.disabled = false; // Only enabled when actually needed
         messageBox.textContent = "No playable starting vowels! You must pass your turn.";
     } else {
         submitWordButton.disabled = false;
         wordInput.disabled = false;
-        passTurnButton.disabled = true; // DISABLE pass if there ARE playable vowels
+        passTurnButton.disabled = true;
     }
 }
+
+passTurnButton.addEventListener('click', () => {
+    if (!gameOver) {
+        messageBox.textContent = `Player ${currentPlayer} passed – no playable vowels.`;
+        if (currentPlayer === 1) player1Plays++;
+        else player2Plays++;
+        updateGameInfo();
+        checkForWin();
+        if (!gameOver) {
+            switchPlayer(); // switchPlayer calls updatePlayableState()
+        }
+    }
+});
 
 // Call updatePlayableState() at the start of each turn (e.g., at the end of switchPlayer and after board changes)
 function switchPlayer() {
@@ -800,19 +813,6 @@ updateGameInfo();
     currentPlayerDisplay.textContent = `Current Player: ${currentPlayer}`;
     updatePlayableState(); // Always update playable state
 }
-
-passTurnButton.addEventListener('click', () => {
-    if (!gameOver) {
-        messageBox.textContent = `Player ${currentPlayer} passed – no playable vowels.`;
-        if (currentPlayer === 1) player1Plays++;
-        else player2Plays++;
-        updateGameInfo();
-        checkForWin();
-        if (!gameOver) {
-            switchPlayer(); // This will update playable state for new player
-        }
-    }
-});
 
         // Initialize game
         createKeyboard();
