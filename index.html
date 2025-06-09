@@ -543,25 +543,26 @@
 }
 
  // --- WINNING ANIMATION ---
-        function triggerWinAnimation() {
-            const keys = document.querySelectorAll('.key');
-            keys.forEach((key, i) => {
-                setTimeout(() => {
-                    key.classList.add('win-animation');
-                    // Remove animation class after animation ends
-                    setTimeout(() => key.classList.remove('win-animation'), 1000);
-                }, i * 40); // Wave effect
-            });
-        
-        function getKeysForWord(word) {
-            const keys = new Set();
-            for (const char of word.toUpperCase()) {
-                if (player1Keys.includes(char) || player2Keys.includes(char)) {
-                    keys.add(char);
-                }
-            }
-            return Array.from(keys);
+       function triggerWinAnimation() {
+    const keys = document.querySelectorAll('.key');
+    keys.forEach((key, i) => {
+        setTimeout(() => {
+            key.classList.add('win-animation');
+            // Remove animation class after animation ends
+            setTimeout(() => key.classList.remove('win-animation'), 1000);
+        }, i * 40); // Wave effect
+    });
+} // <-- this closes the function properly!
+
+function getKeysForWord(word) {
+    const keys = new Set();
+    for (const char of word.toUpperCase()) {
+        if (player1Keys.includes(char) || player2Keys.includes(char)) {
+            keys.add(char);
         }
+    }
+    return Array.from(keys);
+}
 
         function updateBoardDisplay() {
             const keyElements = keyboardContainer.querySelectorAll('.key');
