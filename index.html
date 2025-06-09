@@ -612,12 +612,12 @@ function updatePlayableState() {
     if (!playerHasPlayableVowel(currentPlayer)) {
         submitWordButton.disabled = true;
         wordInput.disabled = true;
-        passTurnButton.disabled = false;
+        passTurnButton.disabled = false; // ENABLE pass if no playable vowels
         messageBox.textContent = "No playable starting vowels! You must pass your turn.";
     } else {
         submitWordButton.disabled = false;
         wordInput.disabled = false;
-        passTurnButton.disabled = true;
+        passTurnButton.disabled = true; // DISABLE pass if there ARE playable vowels
     }
 }
 
