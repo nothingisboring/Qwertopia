@@ -264,27 +264,11 @@
     box-sizing: border-box;
     gap: 1rem;
 }
-        .word-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-            font-size: 0.85rem;
-            max-height: 10rem;
-            overflow-x: visible; /* Remove horizontal scroll */
-            white-space: normal; /* Allow wrapping */
-            word-break: break-word; /* Break long words */
-            color: #e5e7eb;
-            width: 40%;
-        }
-        .word-list-group {
-    background: rgba(31, 41, 55, 0.95);
-    border-radius: 0.75rem;
-    padding: 1rem;
-    margin: 0 0.75rem;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.10);
-    min-width: 160px;
-    flex: 1 1 0;
-    max-width: 320px;
+    .word-list-group {
+    min-width: 220px;
+    max-width: 480px;
+    width: 45vw;
+    margin: 0 1vw;
 }
 
 .word-list-title {
@@ -300,20 +284,35 @@
     color: #38bdf8;
 }
 .word-chip {
-    display: inline-block;
+    display: block;
+    width: 90%;
+    max-width: 420px;
+    font-size: 1.1em;
+    padding: 0.6em 1em;
     background: #374151;
-    color: #f9fafb;
+    color: #fff;
     border-radius: 1.5em;
-    padding: 0.25em 1em;
-    margin: 0.2em 0.2em;
-    font-size: 0.95em;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-    border: 1px solid #6b7280;
-    font-family: inherit;
-    white-space: normal; /* Allow wrapping inside chip */
-    word-break: break-word; /* Break long words inside chip */
-    display: inline-block;
-    max-width: 100%; /* Ensures it doesn't overflow its parent */
+    margin: 0 auto;
+    word-break: break-word;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.11);
+    border: 2px solid transparent;
+    text-align: center;
+    transition: border-color 0.2s;
+}
+.player1 .word-chip {
+    background: #f87171;
+    color: #fff;
+}
+
+.player2 .word-chip {
+    background: #38bdf8;
+    color: #fff;
+}
+        .word-chip.long {
+    background: none;
+    color: #fff;
+    border: 2px dashed #6b7280;
+    font-size: 1em;
 }
 }
 .word-num {
@@ -323,13 +322,18 @@
     font-family: inherit;
 }
 .word-list {
-    text-align: left;
-    padding-left: 0;
-}
-.word-list li {
-    display: block;
-    margin-bottom: 0.2em;
+    padding: 0;
+    margin: 0;
     width: 100%;
+    text-align: center;
+}
+
+.word-list li {
+    list-style: none;
+    margin-bottom: 0.5em;
+    width: 100%;
+    display: flex;
+    justify-content: center;
 }
         /* Game info display */
         #game-info {
@@ -642,10 +646,10 @@ function updateGameInfo() {
         // Improved rendering for word lists as chips with numbers
 function renderWordLists() {
     player1WordsList.innerHTML = player1Words.map((w, i) =>
-        `<li><span class="word-num">${i + 1}.</span> <span class="word-chip" style="background:#f87171;color:#fff;">${w}</span></li>`
+        `<li><span class="word-chip${w.length>15?' long':''}">${w}</span></li>`
     ).join('');
     player2WordsList.innerHTML = player2Words.map((w, i) =>
-        `<li><span class="word-num">${i + 1}.</span> <span class="word-chip" style="background:#38bdf8;color:#fff;">${w}</span></li>`
+        `<li><span class="word-chip${w.length>15?' long':''}">${w}</span></li>`
     ).join('');
 }
 
