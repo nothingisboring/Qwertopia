@@ -526,26 +526,21 @@
         const wordnikApiKey = 'e3fhwhs2eb3firt9fp41rh44e1aibhqfmwzeb5vdcmn8xpph4';
 
         async function checkWordValidity(word) {
-            if (!wordnikApiKey) {
-                console.warn("Wordnik API key is missing. Word validity check will always pass (for testing).");
-                return true;
-            }
-            const url = `https://api.wordnik.com/v4/word.json/${word}/definitions?limit=1&api_key=${wordnikApiKey}`;
-            try {
-                const response = await fetch(url);
-                if (response.ok) {
-                    return true;
-                } else if (response.status === 404) {
-                    return false;
-                } else {
-                    console.error('Wordnik API error:', response.status, await response.text());
-                    return true;
-                }
-            } catch (error) {
-                console.error('Error checking word:', error);
-                return true;
-            }
-        }
+    if (!wordnikApiKey) return false;
+    const url = `https://api.wordnik.com/v4/word.json/${word}/definitions?limit=1&api_key=${wordnikApiKey}`;
+    try {
+        const response = await fetch(url);
+        if (response.status === 404) return false;
+        if (!response.ok) return false; // reject on other server errors
+
+        const definitions = await response.json();
+        // Only accept if definitions array is not empty
+        return Array.isArray(definitions) && definitions.length > 0;
+    } catch (error) {
+        // On error, reject (not accept) the word
+        return false;
+    }
+}
 
  // --- WINNING ANIMATION ---
         function triggerWinAnimation() {
