@@ -498,27 +498,27 @@
             });
         }
   // --- Helper to get color of a letter (red/blue/none) ---
-        function getLetterColor(letter) {
-            if (player1Keys.includes(letter)) return 'red';
-            if (player2Keys.includes(letter)) return 'blue';
-            return 'none';
-        }
+       function getLetterColor(letter) {
+    letter = letter.toUpperCase();
+    if (player1Keys.includes(letter)) return 'red';
+    if (player2Keys.includes(letter)) return 'blue';
+    return 'none';
+}
 
-           // --- NEW: Enforce increasing difficulty: required colored starting letters ---
-        function countStartingColoredLetters(word, player) {
-            let requiredColors = player === 1 ? ['red'] : ['blue'];
-            let count = 0;
-            for (let i = 0; i < word.length; i++) {
-                const color = getLetterColor(word[i]);
-                if ((player === 1 && color === 'red') || (player === 2 && color === 'blue')) {
-                    count++;
-                } else {
-                    break;
-                }
-            }
-            return count;
+function countStartingColoredLetters(word, player) {
+    word = word.toUpperCase();
+    let count = 0;
+    for (let i = 0; i < word.length; i++) {
+        const color = getLetterColor(word[i]);
+        if ((player === 1 && color === 'red') || (player === 2 && color === 'blue')) {
+            count++;
+        } else {
+            break;
         }
-
+    }
+    return count;
+}
+          
         function getRequiredColoredLetters(player) {
             // Round is based on player's plays + 1 (since 0-indexed)
             return (player === 1 ? player1Plays : player2Plays) + 1;
