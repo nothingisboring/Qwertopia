@@ -404,6 +404,35 @@
                 border-radius: 0.25rem;
             }
         }
+/* Add in your style block: */
+.key-capture-animation {
+  animation: keyCapture 0.7s;
+}
+@keyframes keyCapture {
+  0% { box-shadow: 0 0 0 0 #fff; transform: scale(1.2);}
+  60% { box-shadow: 0 0 20px 8px #fff; transform: scale(1);}
+  100% { box-shadow: none; transform: scale(1);}
+}
+.key-lost-animation {
+  animation: keyLost 0.7s;
+}
+@keyframes keyLost {
+  0% { filter: grayscale(0); }
+  50% { filter: grayscale(0.8) brightness(2);}
+  100% { filter: grayscale(0); }
+}
+.key-frozen {
+  outline: 3px solid #b3ecff;
+  background-image: repeating-linear-gradient(135deg, #b3ecff 0 8px, transparent 8px 12px);
+  position: relative;
+}
+.key-frozen::after {
+  content: "❄";
+  position: absolute;
+  right: 2px;
+  top: 2px;
+  font-size: 0.9em;
+}
         .key.win-animation {
             animation: winKeyBounce 1s;
             background: linear-gradient(90deg, #ffcf00, #f0f, #0ff, #ffcf00);
@@ -514,6 +543,38 @@
             }
         });
 
+let frozenKeys = new Set();
+let freezeQueue = []; // [{key, untilRound}]
+
+function freezeKey(keyChar, roundNum) {
+    frozenKeys.add(keyChar);
+    freezeQueue.push({key: keyChar, untilRound: roundNum});
+}
+
+function unfreezeKeys(currentRound) {
+    // Remove frozen keys whose freeze has expired
+    freezeQueue = freezeQueue.filter(f => {
+        if (f.untilRound <= currentRound) {
+            frozenKeys.delete(f.key);
+            return false;
+        }
+        return true;
+    });
+}
+
+// Example: Freeze when a player uses Q, X, or Z (call in handleWordSubmit)
+if (["Q", "X", "Z"].some(ltr => word.includes(ltr))) {
+    // Freeze a random opponent key for 1 round, or let the player pick
+    let oppKeys = Object.keys(board).filter(k => board[k] === (currentPlayer === 1 ? 2 : 1) && !frozenKeys.has(k));
+    if (oppKeys.length) {
+        let toFreeze = oppKeys[Math.floor(Math.random()*oppKeys.length)];
+        freezeKey(toFreeze, currentRound + 1);
+        messageBox.textContent += `\n${toFreeze} is frozen for 1 round!`;
+    }
+}
+
+// In your key capture logic, skip keys in frozenKeys
+        
         function createKeyboard() {
             keyboardContainer.innerHTML = '';
             keyboardRows.forEach(row => {
@@ -580,6 +641,23 @@
                 return false;
             }
         }
+
+        function randomizeKeyboardBlocks() {
+    player1Keys = [];
+    player2Keys = [];
+    keyboardRows.forEach(row => {
+        // Use two blocks per row for simplicity
+        const split = Math.floor(row.length / 2);
+        const blocks = [row.slice(0, split), row.slice(split)];
+        if (Math.random() < 0.5) {
+            player1Keys.push(...blocks[0]);
+            player2Keys.push(...blocks[1]);
+        } else {
+            player2Keys.push(...blocks[0]);
+            player1Keys.push(...blocks[1]);
+        }
+    });
+}
 
         function playerHasPlayableVowel(player) {
             const vowels = ['A', 'E', 'I', 'O', 'U'];
@@ -690,6 +768,25 @@
             }
         }
 
+        // When updating board after a move:
+function animateKeyChange(keyChar, fromPlayer, toPlayer, isFrozen) {
+    const keyEls = Array.from(document.querySelectorAll('.key')).filter(k => k.textContent === keyChar);
+    keyEls.forEach(keyEl => {
+        if (isFrozen) {
+            keyEl.classList.add('key-frozen');
+        } else {
+            keyEl.classList.remove('key-frozen');
+        }
+        if (fromPlayer !== toPlayer && !isFrozen) {
+            if (toPlayer) keyEl.classList.add('key-capture-animation');
+            if (fromPlayer) keyEl.classList.add('key-lost-animation');
+            setTimeout(() => {
+                keyEl.classList.remove('key-capture-animation', 'key-lost-animation');
+            }, 700);
+        }
+    });
+}
+        
         function handleWordSubmit() {
             if (gameOver) return;
 
@@ -762,6 +859,7 @@
         }
 
         // Initialize game
+        randomizeKeyboardBlocks();
         createKeyboard();
         updateBoardDisplay();
         updateGameInfo();
