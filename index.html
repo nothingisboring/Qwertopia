@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>QWERTOPIA Territory Battle</title>
-    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Montserrat&family=Poppins&family=Inter:wght@400;500;700&display=swap"" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Montserrat&family=Poppins&family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
     <style>
         body {
             display: flex;
@@ -41,17 +41,13 @@
             background-color: steelblue;
             color: white;
             padding: 10px;
+            font-family: 'Poppins';
         } 
 
         .city, .bum {
             font-family: 'Montserrat';
         }
-
-     .arse {
-            font-family: 'Poppins';
-        }
         
-        /* Modal button styling */
         #howToPlayButton {
             position: fixed;
             bottom: 1rem;
@@ -76,7 +72,6 @@
             background-color: #374151;
         }
 
-        /* Modal styling */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -125,9 +120,8 @@
             flex-direction: column;
             align-items: center;
             margin-top: 2rem;
-            padding-bottom: 12rem; /* Ensure space at bottom for wordlists */
-}
-        
+            padding-bottom: 12rem;
+        }
         #keyboard {
             display: grid;
             grid-template-columns: repeat(10, 3rem);
@@ -252,94 +246,85 @@
             text-align: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
-      .word-list-container {
-    display: flex;
-    justify-content: center;
-    align-items: stretch;
-    width: 100%;
-    flex-wrap: wrap;
-    /* Remove these:
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    */
-    padding: 1.25rem 0;
-    box-sizing: border-box;
-    gap: 1rem;
-    margin-top: 2.5rem; /* Add margin above */
-}
-    .word-list-group {
-    min-width: 220px;
-    max-width: 480px;
-    width: 45vw;
-    margin: 0 1vw;
-}
-
-.word-list-title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-}
-.word-list-title.player1 {
-    color: #f87171;
-}
-.word-list-title.player2 {
-    color: #38bdf8;
-}
-.word-chip {
-    display: block;
-    width: 90%;
-    max-width: 420px;
-    font-size: 1.1em;
-    padding: 0.6em 1em;
-    background: #374151;
-    color: #fff;
-    border-radius: 1.5em;
-    margin: 0 auto;
-    word-break: break-word;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.11);
-    border: 2px solid transparent;
-    text-align: center;
-    transition: border-color 0.2s;
-}
-.player1 .word-chip {
-    background: #f87171;
-    color: #fff;
-}
-
-.player2 .word-chip {
-    background: #38bdf8;
-    color: #fff;
-}
+        .word-list-container {
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+            width: 100%;
+            flex-wrap: wrap;
+            padding: 1.25rem 0;
+            box-sizing: border-box;
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+        .word-list-group {
+            min-width: 220px;
+            max-width: 480px;
+            width: 45vw;
+            margin: 0 1vw;
+        }
+        .word-list-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+        .word-list-title.player1 {
+            color: #f87171;
+        }
+        .word-list-title.player2 {
+            color: #38bdf8;
+        }
+        .word-chip {
+            display: block;
+            width: 90%;
+            max-width: 420px;
+            font-size: 1.1em;
+            padding: 0.6em 1em;
+            background: #374151;
+            color: #fff;
+            border-radius: 1.5em;
+            margin: 0 auto;
+            word-break: break-word;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.11);
+            border: 2px solid transparent;
+            text-align: center;
+            transition: border-color 0.2s;
+        }
+        .player1 .word-chip {
+            background: #f87171;
+            color: #fff;
+        }
+        .player2 .word-chip {
+            background: #38bdf8;
+            color: #fff;
+        }
         .word-chip.long {
-    background: none;
-    color: #fff;
-    border: 2px dashed #6b7280;
-    font-size: 1em;
-}
+            background: none;
+            color: #fff;
+            border: 2px dashed #6b7280;
+            font-size: 1em;
+        }
+        .word-num {
+            color: #9ca3af;
+            font-size: 0.9em;
+            margin-right: 0.4em;
+            font-family: inherit;
+        }
+        .word-list {
+            padding: 0;
+            margin: 0;
+            width: 100%;
+            text-align: center;
+        }
 
-.word-num {
-    color: #9ca3af;
-    font-size: 0.9em;
-    margin-right: 0.4em;
-    font-family: inherit;
-}
-.word-list {
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    text-align: center;
-}
-
-.word-list li {
-    list-style: none;
-    margin-bottom: 0.5em;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-        /* Game info display */
+        .word-list li {
+            list-style: none;
+            margin-bottom: 0.5em;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
         #game-info {
             margin-top: 1rem;
             font-size: 0.9rem;
@@ -419,7 +404,6 @@
                 border-radius: 0.25rem;
             }
         }
-                 /* --- WINNING ANIMATION --- */
         .key.win-animation {
             animation: winKeyBounce 1s;
             background: linear-gradient(90deg, #ffcf00, #f0f, #0ff, #ffcf00);
@@ -434,7 +418,6 @@
             70%  { transform: scale(1.1) rotate(-3deg);}
             100% { transform: scale(1); }
         }
-    </style>
     </style>
 </head>
 <body>
@@ -471,21 +454,22 @@
         <div id="current-player">Current Player: 1</div>
         <div id="game-info">Player 1: 0/5 words | Player 2: 0/5 words</div>
         <div id="message-box">Welcome to QWERTY Territory Battle!</div>
-       <div class="word-list-container">
-    <div class="word-list-group">
-        <h3 class="word-list-title player1">🔴 Player 1 Words</h3>
-        <ul id="player1-words" class="word-list"></ul>
+        <div class="word-list-container">
+            <div class="word-list-group">
+                <h3 class="word-list-title player1">🔴 Player 1 Words</h3>
+                <ul id="player1-words" class="word-list"></ul>
+            </div>
+            <div class="word-list-group">
+                <h3 class="word-list-title player2">🔵 Player 2 Words</h3>
+                <ul id="player2-words" class="word-list"></ul>
+            </div>
+        </div>
     </div>
-    <div class="word-list-group">
-        <h3 class="word-list-title player2">🔵 Player 2 Words</h3>
-        <ul id="player2-words" class="word-list"></ul>
-    </div>
-</div>
-       
     <script>
         const keyboardContainer = document.getElementById('keyboard');
         const wordInput = document.getElementById('word-input-box');
         const submitWordButton = document.getElementById('submit-word');
+        const passTurnButton = document.getElementById('pass-turn');
         const currentPlayerDisplay = document.getElementById('current-player');
         const messageBox = document.getElementById('message-box');
         const gameInfoDisplay = document.getElementById('game-info');
@@ -551,125 +535,101 @@
                 });
             });
         }
-  // --- Helper to get color of a letter (red/blue/none) ---
-       function getLetterColor(letter) {
-    letter = letter.toUpperCase();
-    // board[letter] === 1 => player 1 controls, === 2 => player 2 controls
-    if (board[letter] === 1) return 'red';
-    if (board[letter] === 2) return 'blue';
-    return 'none';
-}
 
-function countStartingColoredLetters(word, player) {
-    word = word.toUpperCase();
-    let count = 0;
-    for (let i = 0; i < word.length; i++) {
-        const color = getLetterColor(word[i]);
-        if ((player === 1 && color === 'red') || (player === 2 && color === 'blue')) {
-            count++;
-        } else {
-            break;
+        function getLetterColor(letter) {
+            letter = letter.toUpperCase();
+            if (board[letter] === 1) return 'red';
+            if (board[letter] === 2) return 'blue';
+            return 'none';
         }
-    }
-    return count;
-}
-          
+
+        function countStartingColoredLetters(word, player) {
+            word = word.toUpperCase();
+            let count = 0;
+            for (let i = 0; i < word.length; i++) {
+                const color = getLetterColor(word[i]);
+                if ((player === 1 && color === 'red') || (player === 2 && color === 'blue')) {
+                    count++;
+                } else {
+                    break;
+                }
+            }
+            return count;
+        }
+
         function getRequiredColoredLetters(player) {
-            // Round is based on player's plays + 1 (since 0-indexed)
             return (player === 1 ? player1Plays : player2Plays) + 1;
         }
         const wordnikApiKey = 'e3fhwhs2eb3firt9fp41rh44e1aibhqfmwzeb5vdcmn8xpph4';
 
-       // Improved Wordnik word validity check
-async function checkWordValidity(word) {
-    if (!wordnikApiKey) {
-        console.warn("Wordnik API key is missing. Word validity check will always pass (for testing).");
-        return true;
-    }
-    const url = `https://api.wordnik.com/v4/word.json/${word}/definitions?limit=2&api_key=${wordnikApiKey}`;
-    try {
-        const response = await fetch(url);
-        if (!response.ok) {
-            return false;
+        async function checkWordValidity(word) {
+            if (!wordnikApiKey) {
+                console.warn("Wordnik API key is missing. Word validity check will always pass (for testing).");
+                return true;
+            }
+            const url = `https://api.wordnik.com/v4/word.json/${word}/definitions?limit=2&api_key=${wordnikApiKey}`;
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    return false;
+                }
+                const data = await response.json();
+                return Array.isArray(data) && data.length > 0 && !data[0].partOfSpeech?.toLowerCase().includes('proper-noun');
+            } catch (error) {
+                console.error('Error checking word:', error);
+                return false;
+            }
         }
-        const data = await response.json();
-        // Consider valid only if there is at least one definition string and it's not a proper noun
-        return Array.isArray(data) && data.length > 0 && !data[0].partOfSpeech?.toLowerCase().includes('proper-noun');
-    } catch (error) {
-        console.error('Error checking word:', error);
-        return false;
-    }
-}
 
-const passTurnButton = document.getElementById('pass-turn');
-
-function playerHasPlayableVowel(player) {
-    const vowels = ['A', 'E', 'I', 'O', 'U'];
-    return vowels.some(letter => board[letter] === player);
-}
-
-function updatePlayableState() {
-    if (!playerHasPlayableVowel(currentPlayer)) {
-        submitWordButton.disabled = true;
-        wordInput.disabled = true;
-        passTurnButton.disabled = false; // Only enabled when actually needed
-        messageBox.textContent = "No playable starting vowels! You must pass your turn.";
-    } else {
-        submitWordButton.disabled = false;
-        wordInput.disabled = false;
-        passTurnButton.disabled = true;
-    }
-}
-
-passTurnButton.addEventListener('click', () => {
-    if (!gameOver) {
-        messageBox.textContent = `Player ${currentPlayer} passed – no playable vowels.`;
-        if (currentPlayer === 1) player1Plays++;
-        else player2Plays++;
-        updateGameInfo();
-        checkForWin();
-        if (!gameOver) {
-            switchPlayer(); // switchPlayer calls updatePlayableState()
+        function playerHasPlayableVowel(player) {
+            const vowels = ['A', 'E', 'I', 'O', 'U'];
+            return vowels.some(letter => board[letter] === player);
         }
-    }
-});
 
-// Call updatePlayableState() at the start of each turn (e.g., at the end of switchPlayer and after board changes)
-function switchPlayer() {
-    currentPlayer = (currentPlayer === 1) ? 2 : 1;
-    currentPlayerDisplay.textContent = `Current Player: ${currentPlayer}`;
-    updatePlayableState();
-}
-
-// Also call updatePlayableState() after initializing game and after each word submission
-        
- // --- WINNING ANIMATION ---
-       function triggerWinAnimation() {
-    const keys = document.querySelectorAll('.key');
-    keys.forEach((key, i) => {
-        setTimeout(() => {
-            key.classList.add('win-animation');
-            // Remove animation class after animation ends
-            setTimeout(() => key.classList.remove('win-animation'), 1000);
-        }, i * 40); // Wave effect
-    });
-} // <-- this closes the function properly!
-
-function getKeysForWord(word) {
-    const keys = new Set();
-    for (const char of word.toUpperCase()) {
-        if (player1Keys.includes(char) || player2Keys.includes(char)) {
-            keys.add(char);
+        function updatePlayableState() {
+            if (!playerHasPlayableVowel(currentPlayer)) {
+                submitWordButton.disabled = true;
+                wordInput.disabled = true;
+                passTurnButton.disabled = false;
+                messageBox.textContent = "No playable starting vowels! You must pass your turn.";
+            } else {
+                submitWordButton.disabled = false;
+                wordInput.disabled = false;
+                passTurnButton.disabled = true;
+            }
         }
-    }
-    return Array.from(keys);
-}
+
+        passTurnButton.addEventListener('click', () => {
+            if (!gameOver) {
+                messageBox.textContent = `Player ${currentPlayer} passed – no playable vowels.`;
+                if (currentPlayer === 1) player1Plays++;
+                else player2Plays++;
+                updateGameInfo();
+                checkForWin();
+                if (!gameOver) switchPlayer();
+            }
+        });
+
+        function switchPlayer() {
+            currentPlayer = (currentPlayer === 1) ? 2 : 1;
+            currentPlayerDisplay.textContent = `Current Player: ${currentPlayer}`;
+            updatePlayableState();
+        }
+
+        function getKeysForWord(word) {
+            const keys = new Set();
+            for (const char of word.toUpperCase()) {
+                if (player1Keys.includes(char) || player2Keys.includes(char)) {
+                    keys.add(char);
+                }
+            }
+            return Array.from(keys);
+        }
 
         function updateBoardDisplay() {
             const keyElements = keyboardContainer.querySelectorAll('.key');
             keyElements.forEach((keyElement, index) => {
                 const keyChar = keyElement.textContent;
-                
                 if (board[keyChar] === 1) {
                     keyElement.classList.add('player1', 'controlled');
                     keyElement.classList.remove('player2', 'empty');
@@ -683,34 +643,39 @@ function getKeysForWord(word) {
             });
         }
 
-        // Update the updateGameInfo function to show controlled keys
-function updateGameInfo() {
-    const p1 = Object.values(board).filter(v => v === 1).length;
-    const p2 = Object.values(board).filter(v => v === 2).length;
-    gameInfoDisplay.textContent = `Player 1: ${player1Plays}/5 words | Player 2: ${player2Plays}/5 words | Keys: P1 [${p1}] - P2 [${p2}]`;
-}
+        function updateGameInfo() {
+            const p1 = Object.values(board).filter(v => v === 1).length;
+            const p2 = Object.values(board).filter(v => v === 2).length;
+            gameInfoDisplay.textContent = `Player 1: ${player1Plays}/5 words | Player 2: ${player2Plays}/5 words | Keys: P1 [${p1}] - P2 [${p2}]`;
+        }
 
-        // Improved rendering for word lists as chips with numbers
-function renderWordLists() {
-    player1WordsList.innerHTML = player1Words.map((w, i) =>
-        `<li><span class="word-chip${w.length>15?' long':''}">${w}</span></li>`
-    ).join('');
-    player2WordsList.innerHTML = player2Words.map((w, i) =>
-        `<li><span class="word-chip${w.length>15?' long':''}">${w}</span></li>`
-    ).join('');
-}
+        function renderWordLists() {
+            player1WordsList.innerHTML = player1Words.map((w, i) =>
+                `<li><span class="word-chip${w.length>15?' long':''}">${w}</span></li>`
+            ).join('');
+            player2WordsList.innerHTML = player2Words.map((w, i) =>
+                `<li><span class="word-chip${w.length>15?' long':''}">${w}</span></li>`
+            ).join('');
+        }
+
+        function triggerWinAnimation() {
+            const keys = document.querySelectorAll('.key');
+            keys.forEach((key, i) => {
+                setTimeout(() => {
+                    key.classList.add('win-animation');
+                    setTimeout(() => key.classList.remove('win-animation'), 1000);
+                }, i * 40);
+            });
+        }
 
         function checkForWin() {
-            // Check if both players have completed 5 turns
             if (player1Plays >= 5 && player2Plays >= 5) {
                 let player1ControlCount = 0;
                 let player2ControlCount = 0;
-
                 for (const key in board) {
                     if (board[key] === 1) player1ControlCount++;
                     else if (board[key] === 2) player2ControlCount++;
                 }
-
                 if (player1ControlCount > player2ControlCount) {
                     messageBox.textContent = `Game Over! Player 1 wins with ${player1ControlCount} keys controlled!`;
                 } else if (player2ControlCount > player1ControlCount) {
@@ -718,17 +683,13 @@ function renderWordLists() {
                 } else {
                     messageBox.textContent = `Game Over! It's a tie with ${player1ControlCount} keys each!`;
                 }
-
                 gameOver = true;
                 submitWordButton.disabled = true;
                 wordInput.disabled = true;
-
-                // WINNING ANIMATION!
                 triggerWinAnimation();
             }
         }
- 
-         // --- Modified handleWordSubmit to enforce colored letter difficulty ---
+
         function handleWordSubmit() {
             if (gameOver) return;
 
@@ -738,7 +699,6 @@ function renderWordLists() {
                 return;
             }
 
-            // --- DIFFICULTY: Require N colored letters at start (round 2: 2, round 3: 3, up to 5) ---
             const required = getRequiredColoredLetters(currentPlayer);
             const startingColorCount = countStartingColoredLetters(word, currentPlayer);
             if (startingColorCount < required) {
@@ -747,7 +707,6 @@ function renderWordLists() {
                 return;
             }
 
-            // Check that the word starts with a letter controlled by the current player (kept for backward compatibility)
             const startingLetter = word[0];
             if (currentPlayer === 1 && board[startingLetter] !== 1) {
                 messageBox.textContent = 'Word must start with a letter you control.';
@@ -773,23 +732,18 @@ function renderWordLists() {
                     (currentPlayer === 2 && board[key] === 1)
                 );
 
-                // Capture opponent's keys
                 opponentControlledKeys.forEach(key => board[key] = currentPlayer);
                 updateBoardDisplay();
 
-                // Add word to player's list
-                // In handleWordSubmit, after a word is accepted, use the improved renderWordLists:
-if (currentPlayer === 1) {
-    player1Words.push(word);
-} else {
-    player2Words.push(word);
-}
-renderWordLists();
-if (currentPlayer === 1) player1Plays++;
-else player2Plays++;
-
-// Update displays
-updateGameInfo();
+                if (currentPlayer === 1) {
+                    player1Words.push(word);
+                    player1Plays++;
+                } else {
+                    player2Words.push(word);
+                    player2Plays++;
+                }
+                renderWordLists();
+                updateGameInfo();
 
                 if (opponentControlledKeys.length === 0) {
                     messageBox.textContent = `${word} submitted! No opponent letters captured.`;
@@ -797,7 +751,6 @@ updateGameInfo();
                     messageBox.textContent = `${word} captured ${opponentControlledKeys.length} letters!`;
                 }
 
-                // Check for game end before switching players
                 checkForWin();
 
                 if (!gameOver) {
@@ -808,19 +761,13 @@ updateGameInfo();
             });
         }
 
-        function switchPlayer() {
-    currentPlayer = (currentPlayer === 1) ? 2 : 1;
-    currentPlayerDisplay.textContent = `Current Player: ${currentPlayer}`;
-    updatePlayableState(); // Always update playable state
-}
-
         // Initialize game
         createKeyboard();
+        updateBoardDisplay();
         updateGameInfo();
         renderWordLists();
-        updatePlayableState(); // <-- Add this
-        
-        // Event listeners
+        updatePlayableState();
+
         submitWordButton.addEventListener('click', handleWordSubmit);
         wordInput.addEventListener('keypress', (e) => {
             if (e.key === 'Enter') {
