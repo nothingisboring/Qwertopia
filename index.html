@@ -621,18 +621,6 @@ function updatePlayableState() {
     }
 }
 
-passTurnButton.addEventListener('click', () => {
-    if (!gameOver) {
-        messageBox.textContent = `Player ${currentPlayer} passed – no playable vowels.`;
-        if (currentPlayer === 1) player1Plays++;
-        else player2Plays++;
-        updateGameInfo();
-        checkForWin();
-        if (!gameOver) switchPlayer();
-        updatePlayableState();
-    }
-});
-
 // Call updatePlayableState() at the start of each turn (e.g., at the end of switchPlayer and after board changes)
 function switchPlayer() {
     currentPlayer = (currentPlayer === 1) ? 2 : 1;
@@ -808,13 +796,29 @@ updateGameInfo();
         }
 
         function switchPlayer() {
-            currentPlayer = (currentPlayer === 1) ? 2 : 1;
-            currentPlayerDisplay.textContent = `Current Player: ${currentPlayer}`;
+    currentPlayer = (currentPlayer === 1) ? 2 : 1;
+    currentPlayerDisplay.textContent = `Current Player: ${currentPlayer}`;
+    updatePlayableState(); // Always update playable state
+}
+
+passTurnButton.addEventListener('click', () => {
+    if (!gameOver) {
+        messageBox.textContent = `Player ${currentPlayer} passed – no playable vowels.`;
+        if (currentPlayer === 1) player1Plays++;
+        else player2Plays++;
+        updateGameInfo();
+        checkForWin();
+        if (!gameOver) {
+            switchPlayer(); // This will update playable state for new player
         }
+    }
+});
 
         // Initialize game
         createKeyboard();
         updateGameInfo();
+        renderWordLists();
+        updatePlayableState(); // <-- Add this
         
         // Event listeners
         submitWordButton.addEventListener('click', handleWordSubmit);
