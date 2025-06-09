@@ -185,7 +185,8 @@
             background-color: #6b7280;
             border-color: #4b5563;
             color: #f9fafb;
-        }
+        }       
+       
         #word-input {
             margin-top: 1.5rem;
             display: flex;
@@ -249,17 +250,20 @@
             text-align: center;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
-        .word-list-container {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-            margin-top: 3.75rem;
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            padding: 1.25rem 0;
-            box-sizing: border-box;
-        }
+       .word-list-container {
+    display: flex;
+    justify-content: center;
+    align-items: stretch;
+    width: 100%;
+    flex-wrap: wrap;
+    margin-top: 2.5rem;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    padding: 1.25rem 0;
+    box-sizing: border-box;
+    gap: 1rem;
+}
         .word-list {
             list-style: none;
             padding: 0;
@@ -270,29 +274,55 @@
             color: #e5e7eb;
             width: 40%;
         }
-        .word-list-title {
-            font-size: 1.1rem;
-            font-weight: bold;
-            margin-bottom: 0.75rem;
-            color: #f9fafb;
-            text-align: center;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4);
-        }
-        .word-list::-webkit-scrollbar {
-            width: 0.6rem;
-        }
-        .word-list::-webkit-scrollbar-track {
-            background-color: #1f2937;
-            border-radius: 0.375rem;
-        }
-        .word-list::-webkit-scrollbar-thumb {
-            background-color: #6b7280;
-            border-radius: 0.375rem;
-        }
-        .word-list::-webkit-scrollbar-thumb:hover {
-            background-color: #9ca3af;
-        }
+        .word-list-group {
+    background: rgba(31, 41, 55, 0.95);
+    border-radius: 0.75rem;
+    padding: 1rem;
+    margin: 0 0.75rem;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.10);
+    min-width: 160px;
+    flex: 1 1 0;
+    max-width: 320px;
+}
 
+.word-list-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+.word-list-title.player1 {
+    color: #f87171;
+}
+.word-list-title.player2 {
+    color: #38bdf8;
+}
+.word-chip {
+    display: inline-block;
+    background: #374151;
+    color: #f9fafb;
+    border-radius: 1.5em;
+    padding: 0.25em 1em;
+    margin: 0.2em 0.2em;
+    font-size: 0.95em;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+    border: 1px solid #6b7280;
+    font-family: inherit;
+}
+.word-num {
+    color: #9ca3af;
+    font-size: 0.9em;
+    margin-right: 0.4em;
+    font-family: inherit;
+}
+.word-list {
+    text-align: left;
+    padding-left: 0;
+}
+.word-list li {
+    list-style: none;
+    margin-bottom: 0.1em;
+}
         /* Game info display */
         #game-info {
             margin-top: 1rem;
