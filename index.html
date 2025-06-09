@@ -454,18 +454,17 @@
         <div id="current-player">Current Player: 1</div>
         <div id="game-info">Player 1: 0/5 words | Player 2: 0/5 words</div>
         <div id="message-box">Welcome to QWERTY Territory Battle!</div>
-        <div class="word-list-container">
-            <div class="word-list-group">
-                <h3 class="word-list-title">Player 1 Words</h3>
-                <ul id="player1-words" class="word-list"></ul>
-            </div>
-            <div class="word-list-group">
-                <h3 class="word-list-title">Player 2 Words</h3>
-                <ul id="player2-words" class="word-list"></ul>
-            </div>
-        </div>
+       <div class="word-list-container">
+    <div class="word-list-group">
+        <h3 class="word-list-title player1">🔴 Player 1 Words</h3>
+        <ul id="player1-words" class="word-list"></ul>
     </div>
-
+    <div class="word-list-group">
+        <h3 class="word-list-title player2">🔵 Player 2 Words</h3>
+        <ul id="player2-words" class="word-list"></ul>
+    </div>
+</div>
+       
     <script>
         const keyboardContainer = document.getElementById('keyboard');
         const wordInput = document.getElementById('word-input-box');
